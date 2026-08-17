@@ -5,9 +5,10 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-
+import org.firtinspires.ftc.robotcore.external.navigation.AngleUnit
 public class robothardwaremanager {
     // Motors
     public DcMotor frontLeft, frontRight, backLeft, backRight;
@@ -19,7 +20,8 @@ public class robothardwaremanager {
     public CRServo servo1;
     // Pinpoint odometry
     public GoBildaPinpointDriver odo;
-
+    public RevImu
+    
     public void init(HardwareMap hardwareMap) {
         // Initialize motors - motor names from your config
         frontLeft = hardwareMap.get(DcMotor.class, "motor 1");
@@ -32,13 +34,15 @@ public class robothardwaremanager {
         intake1 = hardwareMap.get(DcMotor.class, "intake 1");
         servolaunch = hardwareMap.get(CRServo.class, "servo launch");
         servo1 = hardwareMap.get(CRServo.class, "servo1");
-
+        RevImu = hardwareMap.get(IMU.class, "RevImu");
+        
         // Set motor directions - ADJUST IF ROBOT MOVES BACKWARDS
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
         backRight.setDirection(DcMotorSimple.Direction.FORWARD);
         speedyleft.setDirection(DcMotor.Direction.REVERSE);
+        
         // Set zero power behavior
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
