@@ -5,20 +5,18 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode; // and now here i s
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit; // i'm gonna bring in the angle things from the 25-26 project
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-// wait, it's too scary, no, STOP-
+// wait. it's too scary. no, STOP-
 
 public class telemetryplus extends LinearOpMode { // OBJECTIVE: simple functions to make telemetry printing n' all that garbage (affectionately) marginally less tedious
 
-  private GoBildaPinpointDriver odo; // i yoinked this from the 25-26 codebase hehehehe, anyways here's the odometry init from 25-26 that someone smarter than me can go tweaking at
+  private GoBildaPinpointDriver odo; // i yoinked this from the 25-26 codebase hehehehe, anyways here's the odometry init from 25-26 that someone smarter than me can go tweaking at later
   odo = hardwareMap.get(GoBildaPinpointDriver.class, "odo");
   odo.setOffsets(-84.0, -168.0, DistanceUnit.MM); // ADJUST TO YOUR ROBOT'S OFFSETS (mm)
   odo.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
   odo.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
   odo.resetPosAndIMU();
-
-
   
-  public void printtotelem(yourstrhere) {
+  public void qprint(yourstrhere) { // qprint, for quick print
 
     // come on man do i really need to say what this does? sighhhhhhhhhhhhhhh it's meant to be a 1-line solution to printing a single line of text to the telemetry
 
@@ -27,10 +25,9 @@ public class telemetryplus extends LinearOpMode { // OBJECTIVE: simple functions
     telemetry.addLine(yourstrhere);
     telemetry.update();
     
-    
   }
 
-  public void showlocationdata() {
+  public void showloc() {
     
     // print all of the odometry/location data stuff (x, y, and heading) - probably useful for debugging stuff or whatever
     
@@ -41,7 +38,16 @@ public class telemetryplus extends LinearOpMode { // OBJECTIVE: simple functions
     telemetry.addData("Current Y", "%.1f", currentY);
     telemetry.addData("Current X", "%.1f", currentX);
     telemetry.addData("Current Heading", "%.1f", currentHeading);
+    telemetry.update();
+    
   }
+
+  public void thirdfunction() { // HANS WE NEED A BETTER TRANSMISSIO
+
+    
+
+  }
+
 }
 
 // EXIT THE SURVIVAL HORROR.
