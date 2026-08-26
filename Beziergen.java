@@ -15,9 +15,9 @@ public class Beziergen {
         double Y_0 = bGLocalization.currentypose;
         double X_0 = bGLocalization.currentxpose;
         double Y_1 = ((bGLocalization.currentypose)+Math.cos(bGLocalization.currentheading))*currentVelocity;
-        double X_1 = ((bGLocalization.currentxpose)+Math.cos(bGLocalization.currentheading))*currentVelocity;
+        double X_1 = ((bGLocalization.currentxpose)+Math.sin(bGLocalization.currentheading))*currentVelocity;
         double Y_2 = ((targetY)+Math.cos(targetHeading))*targetVelocity;
-        double X_2 = ((targetX)+Math.cos(targetHeading))*targetVelocity;
+        double X_2 = ((targetX)+Math.sin(targetHeading))*targetVelocity;
         double Y_3 = targetY;
         double X_3 = targetX;
         for (int slice = 0; slice <= 200; slice++) {
