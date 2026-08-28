@@ -14,27 +14,17 @@ public class motorcontroller {
     utilityclass.coordinates nextpoint = utility.new coordinates(0,0);
 
     public char xchange;
-    
     public boolean curveEnabled = false;
-    
     public char ychange;
-    
     public double headingchange;
-    
     private double xpose;
-    
     private double ypose;
-    
     private double thetapose;
-    
     private double firstX;
-    
     private double firstY;
-    
     private double nextX;
-    
     private double nextY;
-    
+
     public void turnto(double thetapose) {
 
     }
@@ -58,14 +48,28 @@ public class motorcontroller {
         }
 
         if(curveEnabled = true){
-            firstX = firstpoint.getXCoord();
-            firstY = firstpoint.getYCoord();
-            nextpoint = bezier.nextPoint();
+            firstpoint = bezier.nextPoint();
+            while(bezier.empty()) {
+                firstX = firstpoint.getXCoord();
+                firstY = firstpoint.getYCoord();
+                nextX = nextpoint.getXCoord();
+                nextY = nextpoint.getYCoord();
+
+                nextpoint = bezier.nextPoint();
+            }
         }else{
 
         }
 
 
+        //- direct path gen here
+        //tight turn detector here
+        //colision correction here
+        //motion profiling here
+
+    }
+
+}
         //- direct path gen here
         //tight turn detector here
         //colision correction here
