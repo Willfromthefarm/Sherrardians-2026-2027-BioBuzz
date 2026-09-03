@@ -1,7 +1,6 @@
 // originally from will's branch
 
 package org.firstinspires.ftc.teamcode;
-
 import org.firstinspires.ftc.teamcode.auto.localizationhub;
 import org.firstinspires.ftc.teamcode.auto.robothardwaremanager;
 
@@ -22,7 +21,7 @@ public class Beziergen {
     double slope = 0
     double lastEstdHeading = 0
     double headingChg = 0
-    double acceptableMax = (3.14 / 2) // maximum accepted turn radius, set to a right angle for now
+    double acceptableMax = (3.14 / 2) // maximum accepted turn radius !!IN RADIANS!! - set to a right angle for now
   
     public Beziergen(double targetX, double targetY, double targetHeading){
         bGLocalization.updatePosition();
@@ -52,23 +51,22 @@ public class Beziergen {
               xDiff = previousX - xPoseCoords; // change in X value
               yDiff = previousY - yPoseCoords; // change in Y value
               slope = yDiff / xDiff; // rise over run
-              estdHeading = arcsin(slope); // estimated heading going from the last point to this point - import a math function or something to get arcsin
+              estdHeading = Math.atan(slope); // estimated heading going from the last point to this point, using arctan (tan(a) = opposite(Y)/adjacent(X), therefore atan(opposite/adjacent) = a)
               
               if (slice >= 2) { // same with the last est'd heading being undefined before the second point
                 headingChg = lastEstdHeading - estdHeading // est'd heading change between points, in radians
                   
                 if (headingChg >= acceptableMax) {
-                  // break function and stop generating curve
-                  return String[Too steep!] // or something
+                  // break function and stop generating curve if the change in heading from one point to another is steeper than possible (i.e. if it's over the acceptable maximum)
+                  return String["Too steep!"] // or something - just abort the function
                     
                 }
                 
               }
+                lastEstdHeading = estdHeading; // after running the checks with the heading and the change in heading, this heading becomes the last one for the next run of calculations (or the heading to use for the first run of this check)
               
             }
-              
-            lastEstdHeading = estdHeading;
-            previousX = xPoseCoords;
+            previousX = xPoseCoords; // ditto with the X and Y coordinates
             previousY = yPoseCoords;
           
         }
