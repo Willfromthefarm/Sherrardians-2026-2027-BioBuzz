@@ -13,14 +13,14 @@ public class Beziergen {
     public double targetVelocity = 2;
 
     // initialize variables for the checks
-    double previousX = 0
-    double previousY = 0
-    double xDiff = 0
-    double yDiff = 0
-    double estdHeading = 0
-    double slope = 0
-    double lastEstdHeading = 0
-    double headingChg = 0
+    double previousX = 0;
+    double previousY = 0;
+    double xDiff = 0;
+    double yDiff = 0;
+    double estdHeading = 0;
+    double slope = 0;
+    double lastEstdHeading = 0;
+    double headingChg = 0;
     double acceptableMax = (3.14 / 2) // maximum accepted turn radius !!IN RADIANS!! - set to a right angle for now
   
     public Beziergen(double targetX, double targetY, double targetHeading){
@@ -54,11 +54,11 @@ public class Beziergen {
               estdHeading = Math.atan(slope); // estimated heading going from the last point to this point, using arctan (tan(a) = opposite(Y)/adjacent(X), therefore atan(opposite/adjacent) = a)
               
               if (slice >= 2) { // same with the last est'd heading being undefined before the second point
-                headingChg = lastEstdHeading - estdHeading // est'd heading change between points, in radians
+                headingChg = lastEstdHeading - estdHeading; // est'd heading change between points, in radians
                   
                 if (headingChg >= acceptableMax) {
                   // break function and stop generating curve if the change in heading from one point to another is steeper than possible (i.e. if it's over the acceptable maximum)
-                  return String["Too steep!"] // or something - just abort the function
+                  return; // or something - just abort the function
                     
                 }
                 
