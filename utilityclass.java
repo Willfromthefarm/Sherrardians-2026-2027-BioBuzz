@@ -17,6 +17,25 @@ public class utilityclass {
             return yCoord;
         }
     }
+    class coordsandangle{
+        private double xCoord;
+        private double yCoord;
+        private double hdng;
+        public coordinates(double xCoord,double yCoord,double hdng){
+            this.xCoord = xCoord;
+            this.yCoord = yCoord;
+            this.hdng = hdng
+        }
+        public double getXCoord(){
+            return xCoord;
+        }
+        public double getYCoord(){
+            return yCoord;
+        }
+        public double getHdng(){
+            return hdng;
+        }
+    }
     class Queue{
         private int maxSize;
         private coordinates[ ] queArray;
