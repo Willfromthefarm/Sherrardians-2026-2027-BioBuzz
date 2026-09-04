@@ -13,6 +13,23 @@ public class motorcontroller {
     }
     public void Driveto(double xpose,double ypose,double thetapose) {
 
+        while (currentHeading != thetapose) { // i'm getting tired, the currentHeading thing can be added later
+
+            if ( (thetapose - currentheading) > 3.14 ) {
+                
+                // turn left
+                
+            }else{
+                
+                // turn right
+                
+            }
+        }
+        while (xpose != currentX && ypose != currentY) {
+
+            // move forward
+            
+        }
     }
 
 }
