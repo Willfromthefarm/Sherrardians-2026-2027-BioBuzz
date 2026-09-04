@@ -42,9 +42,11 @@ public class Beziergen {
             double xPoseCoords = (oneLessThanT*oneLessThanT*oneLessThanT*X_0)+(3*oneLessThanT*oneLessThanT*t*X_1)+(3*oneLessThanT*t*t*X_2)+(t*t*t*X_3);
             double yPoseCoords = (oneLessThanT*oneLessThanT*oneLessThanT*Y_0)+(3*oneLessThanT*oneLessThanT*t*Y_1)+(3*oneLessThanT*t*t*Y_2)+(t*t*t*Y_3);
             //stores the values in a queue
+            if (slice = 0) {
             pathQueue.insert(
-                    utility.new coordinates(xPoseCoords,yPoseCoords);
+                    utility.new coordsandangle(xPoseCoords,yPoseCoords,bGLocalization.currentheading);
             );
+            }
           
             if (slice != 0) { // doing this with the first point would cause issues with the last point being undefined
               
@@ -52,7 +54,9 @@ public class Beziergen {
               yDiff = previousY - yPoseCoords; // change in Y value
               slope = yDiff / xDiff; // rise over run
               estdHeading = Math.atan(slope); // estimated heading going from the last point to this point, using arctan (tan(a) = opposite(Y)/adjacent(X), therefore atan(opposite/adjacent) = a)
-              
+              pathQueue.insert(
+                    utility.new coordsandangle(xPoseCoords,yPoseCoords,estdHeading);
+              );
               if (slice >= 2) { // same with the last est'd heading being undefined before the second point
                 headingChg = lastEstdHeading - estdHeading; // est'd heading change between points, in radians
                   
