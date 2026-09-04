@@ -7,8 +7,8 @@ import org.firstinspires.ftc.teamcode.auto.robothardwaremanager;
 public class Beziergen {
     robothardwaremanager bGRobot = new robothardwaremanager();
     localizationhub bGLocalization = new localizationhub(bGRobot);
-    utilityclass utility = new utilityclass();
-    utilityclass.Queue pathQueue = utility.new Queue(201);
+    public utilityclass utility = new utilityclass();
+    public utilityclass.Queue pathQueue = utility.new Queue(201);
     public double currentVelocity = 2;
     public double targetVelocity = 2;
 
