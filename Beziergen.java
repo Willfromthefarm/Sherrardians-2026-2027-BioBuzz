@@ -76,7 +76,7 @@ public class Beziergen {
         }
       
     }
-    public utilityclass.coordinates nextPoint(){
+    public utilityclass.coordsandangle nextPoint(){
         return pathQueue.remove();
     }
     public boolean empty(){
