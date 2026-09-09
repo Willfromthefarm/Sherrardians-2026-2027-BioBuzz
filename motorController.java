@@ -13,9 +13,30 @@ public class motorcontroller {
     }
     public void Driveto(double xpose,double ypose,double thetapose) {
 
-        while (currentHeading != thetapose) { // i'm getting tired, the currentHeading thing can be added later
+        xchange= currentX + xpose; // i'm getting tired, the currentX,Y, Heading and other odometry stuff can be added later
+        ychange = currentY + ypose;
+        double thetatotarget = Math.tan(ychange,xchange);
+        double turningneeded = currentHeading-thetatotarget
+        while (currentHeading != turningneeded) { 
 
-            if ( (thetapose - currentheading) > 3.14 ) {
+        if ( (turningneeded - currentHeading) > 3.14 ) {
+                
+                // turn left
+                
+        }else{
+                
+                // turn right
+                
+        }
+        while (xchange != currentX && ychange != currentY) {
+
+            // move forward
+            
+        }
+
+        while (currentHeading != thetapose) { 
+
+            if ( (thetapose - currentHeading) > 3.14 ) {
                 
                 // turn left
                 
@@ -24,12 +45,8 @@ public class motorcontroller {
                 // turn right
                 
             }
-        }
-        while (xpose != currentX && ypose != currentY) {
-
-            // move forward
-            
-        }
     }
+
+}
 
 }
