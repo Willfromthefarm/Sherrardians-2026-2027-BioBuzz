@@ -21,9 +21,6 @@ public class Mecanumdrive {
     backLeftDrive  = hardwareMap.get(DcMotor.class, "back_left");
     backRightDrive = hardwareMap.get(DcMotor.class, "back_right");
     }
-    public void driveTo(double xPower, double yPower, double turnPower){
-
-    }
 }
 
 
