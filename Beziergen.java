@@ -41,6 +41,11 @@ public class Beziergen {
             //the curve gen, converts 4 points into a vector navigation path
             double xPoseCoords = (oneLessThanT*oneLessThanT*oneLessThanT*X_0)+(3*oneLessThanT*oneLessThanT*t*X_1)+(3*oneLessThanT*t*t*X_2)+(t*t*t*X_3);
             double yPoseCoords = (oneLessThanT*oneLessThanT*oneLessThanT*Y_0)+(3*oneLessThanT*oneLessThanT*t*Y_1)+(3*oneLessThanT*t*t*Y_2)+(t*t*t*Y_3);
+            // TODO: generate derivatives
+            double xPoseDerivative = 3 * 
+            double yPoseDerivative =
+
+            double headingPoseCoords =
             //stores the values in a queue
             if (slice = 0) {
             pathQueue.insert(
@@ -49,16 +54,11 @@ public class Beziergen {
             }
           
             if (slice != 0) { // doing this with the first point would cause issues with the last point being undefined
-              
-              xDiff = previousX - xPoseCoords; // change in X value
-              yDiff = previousY - yPoseCoords; // change in Y value
-              slope = yDiff / xDiff; // rise over run
-              estdHeading = Math.atan(slope); // estimated heading going from the last point to this point, using arctan (tan(a) = opposite(Y)/adjacent(X), therefore atan(opposite/adjacent) = a)
               pathQueue.insert(
-                    utility.new coordsandangle(xPoseCoords,yPoseCoords,estdHeading);
+                    utility.new coordsandangle(xPoseCoords,yPoseCoords,headingPoseCoords);
               );
               if (slice >= 2) { // same with the last est'd heading being undefined before the second point
-                headingChg = lastEstdHeading - estdHeading; // est'd heading change between points, in radians
+                headingChg = lastHeading - headingPoseCoords; // est'd heading change between points, in radians
                   
                 if (headingChg >= acceptableMax) {
                   // break function and stop generating curve if the change in heading from one point to another is steeper than possible (i.e. if it's over the acceptable maximum)
@@ -67,11 +67,9 @@ public class Beziergen {
                 }
                 
               }
-                lastEstdHeading = estdHeading; // after running the checks with the heading and the change in heading, this heading becomes the last one for the next run of calculations (or the heading to use for the first run of this check)
+            lastHeading = headingPoseCoords;
               
             }
-            previousX = xPoseCoords; // ditto with the X and Y coordinates
-            previousY = yPoseCoords;
           
         }
       
