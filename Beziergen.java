@@ -38,26 +38,23 @@ public class Beziergen {
             double t = (double) slice/200;
             //eliminates some of the math in the curve gen
             double oneLessThanT = 1- t;
+            double oneMinusSlice = 1 - slice;
             //the curve gen, converts 4 points into a vector navigation path
             double xPoseCoords = (oneLessThanT*oneLessThanT*oneLessThanT*X_0)+(3*oneLessThanT*oneLessThanT*t*X_1)+(3*oneLessThanT*t*t*X_2)+(t*t*t*X_3);
             double yPoseCoords = (oneLessThanT*oneLessThanT*oneLessThanT*Y_0)+(3*oneLessThanT*oneLessThanT*t*Y_1)+(3*oneLessThanT*t*t*Y_2)+(t*t*t*Y_3);
             // TODO: generate derivatives
-            double xPoseDerivative = 3 * 
-            double yPoseDerivative =
-
-            double headingPoseCoords =
+            double xPoseDerivative = 3 * math.pow(oneMinusSlice , 2) * (X_1 - X_0) + 6 * oneMinusSlice * slice * (X_2 - X_1) + 3 * math.pow(slice, 2) * (X_3 - X_2);
+            double yPoseDerivative = 3 * math.pow(oneMinusSlice , 2) * (Y_1 - Y_0) + 6 * oneMinusSlice * slice * (Y_2 - Y_1) + 3 * math.pow(slice, 2) * (Y_3 - Y_2)
+            double slopeFromDerivative = yPoseDerivative / xPoseDerivative;
+            double headingPoseCoords = math.atan(slopeFromDerivative);
             //stores the values in a queue
             if (slice = 0) {
             pathQueue.insert(
-                    utility.new coordsandangle(xPoseCoords,yPoseCoords,bGLocalization.currentheading);
+                    utility.new coordsandangle(xPoseCoords,yPoseCoords,headingPoseCoords);
             );
             }
-          
-            if (slice != 0) { // doing this with the first point would cause issues with the last point being undefined
-              pathQueue.insert(
-                    utility.new coordsandangle(xPoseCoords,yPoseCoords,headingPoseCoords);
-              );
-              if (slice >= 2) { // same with the last est'd heading being undefined before the second point
+        
+              if (slice >= 2) { //last est'd heading being undefined before the second point
                 headingChg = lastHeading - headingPoseCoords; // est'd heading change between points, in radians
                   
                 if (headingChg >= acceptableMax) {
@@ -71,7 +68,6 @@ public class Beziergen {
               
             }
           
-        }
       
     }
     public utilityclass.coordsandangle nextPoint(){
