@@ -8,6 +8,8 @@ public class motorcontroller {
     private double xpose;
     private double ypose;
     private double thetapose;
+    private double xcorr;
+    private double ycorr;
     public void motorcontroller() {
 
     }
@@ -19,25 +21,22 @@ public class motorcontroller {
         double thetatotarget = Math.tan(ychange,xchange);
         double turningneeded = currentHeading-thetatotarget
         while (startheading != turningneeded) { 
-
-        if ( (turningneeded - startheading) > 3.14 ) {
-                
-                // turn left
-                
-        }else{
-                
-                // turn right
-                    
+                PIDclass.calculate(startheading, turningneeded);
+                // turn (move the motors needed to turn that direction, functionality that doesn't seem to be implemented yet) to make it turn this direction
         }
         if (absoluteposition == false){
             while (xchange != currentX && ychange != currentY) {
-
-                // move forward
+                xcorr = PIDclass.calculate(currentX, xchange);
+                ycorr = PIDclass.calculate(currentY, ychange);
+                Math.arctan( (ycorr / xcorr) ) //Distance needed to correct
+                // move forward by moving the necessary motors in the necessary directions to make it go a given direction
             
             }
         }else{
             while (xpose != currentX && ypose != currentY) {
-
+                xcorr = PIDclass.calculate(currentX, xpose);
+                ycorr = PIDclass.calculate(currentY, ypose);
+                Math.arctan( (ycorr / xcorr) ) //Distance needed to correct
                 // move forward
             
             }
