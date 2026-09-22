@@ -44,16 +44,8 @@ public class motorcontroller {
 
         while (currentHeading != thetapose) { 
 
-            if ( (thetapose - currentHeading) > 3.14 ) {
-                
-                // turn left
-                
-            }else{
-                
-                // turn right
-                
-            }
-        }
+            PIDclass.calculate(currentHeading, thetapose);
+            // Sample Text (turn more)
     }
 
 }
