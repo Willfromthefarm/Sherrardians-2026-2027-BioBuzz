@@ -31,10 +31,10 @@ public class motorcontroller {
             backRightPower = (float) (backRightPower / max);
           }
           
-            motor1.setPower(frontLeftPower*movementSpeed);
-            motor3.setPower(frontRightPower*movementSpeed);
-            motor2.setPower(backLeftPower*movementSpeed);
-            motor4.setPower(backRightPower*movementSpeed);
+            motor1.setPower(frontLeftPower);
+            motor3.setPower(frontRightPower);
+            motor2.setPower(backLeftPower);
+            motor4.setPower(backRightPower);
         }
     }
 
