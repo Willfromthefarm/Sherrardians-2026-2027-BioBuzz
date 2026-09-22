@@ -8,44 +8,34 @@ public class motorcontroller {
     private double xpose;
     private double ypose;
     private double thetapose;
-    private double xcorr;
-    private double ycorr;
     public void motorcontroller() {
 
     }
-    public void Driveto(double xpose,double ypose,double thetapose,bool absoluteposition) {
-
-        xchange= currentX + xpose; // i'm getting tired, the currentX,Y, Heading and other odometry stuff can be added later
-        ychange = currentY + ypose;
-        startheading = currentHeading;
-        double thetatotarget = Math.tan(ychange,xchange);
-        double turningneeded = currentHeading-thetatotarget
-        while (startheading != turningneeded) { 
-                PIDclass.calculate(startheading, turningneeded);
-                // turn (move the motors needed to turn that direction, functionality that doesn't seem to be implemented yet) to make it turn this direction
-        }
-        if (absoluteposition == false){
-            while (xchange != currentX && ychange != currentY) {
-                xcorr = PIDclass.calculate(currentX, xchange);
-                ycorr = PIDclass.calculate(currentY, ychange);
-                Math.arctan( (ycorr / xcorr) ) //Distance needed to correct
-                // move forward by moving the necessary motors in the necessary directions to make it go a given direction
+    public void Driveto(double xpose,double ypose,double thetapose) {
+        while(xpose != currentX && ypose != currentY && thetapose != currentHeading){
+            axial = PIDclass.calculate(currentY, ypose); // the Y
+            lateral = PIDclass.calculate(currentX, xpose); // the X
+            yaw = PIDclass.calculate(currentHeading, thetapose); // the angle
             
-            }
-        }else{
-            while (xpose != currentX && ypose != currentY) {
-                xcorr = PIDclass.calculate(currentX, xpose);
-                ycorr = PIDclass.calculate(currentY, ypose);
-                Math.arctan( (ycorr / xcorr) ) //Distance needed to correct
-                // move forward
-            
-            }
+            // motor power calculations
+            frontLeftPower = axial + lateral + yaw;
+            frontRightPower = (axial - lateral) - yaw;
+            backLeftPower = (axial - lateral) + yaw;
+            backRightPower = (axial + lateral) - yaw;
+          
+          max = JavaUtil.maxOfList(JavaUtil.createListWith(Math.abs(frontLeftPower), Math.abs(frontRightPower), Math.abs(backLeftPower), Math.abs(backRightPower)));
+          if (max > 1) {
+            frontLeftPower = (float) (frontLeftPower / max);
+            frontRightPower = (float) (frontRightPower / max);
+            backLeftPower = (float) (backLeftPower / max);
+            backRightPower = (float) (backRightPower / max);
+          }
+          
+            motor1.setPower(frontLeftPower*movementSpeed);
+            motor3.setPower(frontRightPower*movementSpeed);
+            motor2.setPower(backLeftPower*movementSpeed);
+            motor4.setPower(backRightPower*movementSpeed);
         }
-
-        while (currentHeading != thetapose) { 
-
-            PIDclass.calculate(currentHeading, thetapose);
-            // Sample Text (turn more)
     }
 
 }
