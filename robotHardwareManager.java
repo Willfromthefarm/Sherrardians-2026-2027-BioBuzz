@@ -22,7 +22,8 @@ public class robothardwaremanager {
     public Servo turretservo;
     // Pinpoint odometry
     public GoBildaPinpointDriver odo;
-    public NormalizedColorSensor ballSensor;
+    public NormalizedColorSensor ballSensorL;
+    public NormalizedColorSensor ballSensorR;
     
 
     public void init(HardwareMap hardwareMap) {
@@ -37,7 +38,8 @@ public class robothardwaremanager {
         servolaunch = hardwareMap.get(Servo.class, "servolaunch");
         storageservo = hardwareMap.get(Servo.class, "storageservo");
         turretservo = hardwareMap.get(Servo.class, "turretservo");
-        ballSensor = hardwareMap.get(NormalizedColorSensor.class, "ballSensor");
+        ballSensorL = hardwareMap.get(NormalizedColorSensor.class, "ballSensorL");
+        ballSensorR = hardwareMap.get(NormalizedColorSensor.class, "ballSensorR");
 
         // Set motor directions - ADJUST IF ROBOT MOVES BACKWARDS
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -51,7 +53,8 @@ public class robothardwaremanager {
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //set the color sensor settings
-        ballSensor.setGain(colorGain);
+        ballSensorL.setGain(colorGain);
+        ballSensorR.setGain(colorGain);
 
         // Initialize Pinpoint - ADJUST NAME TO MATCH YOUR CONFIG
         odo = hardwareMap.get(GoBildaPinpointDriver.class, "odo");
