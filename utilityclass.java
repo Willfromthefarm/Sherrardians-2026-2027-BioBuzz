@@ -3,29 +3,19 @@
 package org.firstinspires.ftc.teamcode;
 
 public class utilityclass {
-    class coordinates{
-        private double xCoord;
-        private double yCoord;
-        public coordinates(double xCoord,double yCoord){
-            this.xCoord = xCoord;
-            this.yCoord = yCoord;
-        }
-        public double getXCoord(){
-            return xCoord;
-        }
-        public double getYCoord(){
-            return yCoord;
-        }
-    }
-    class coordsandangle{
+    static class coordsandangle{
         private double xCoord;
         private double yCoord;
         private double hdng;
-        public coordinates(double xCoord,double yCoord,double hdng){
+        public coordsandangle(double xCoord, double yCoord, double hdng){
             this.xCoord = xCoord;
             this.yCoord = yCoord;
-            this.hdng = hdng
+            this.hdng = hdng;
         }
+
+        public coordsandangle(coordsandangle coordsandangle) {
+        }
+
         public double getXCoord(){
             return xCoord;
         }
@@ -38,39 +28,42 @@ public class utilityclass {
     }
     class Queue{
         private int maxSize;
-        private coordinates[ ] queArray;
+        private coordsandangle[ ] queArray;
         private int front;
         private int rear;
         private int nItems;
         //-----------------------------------------
         public Queue(int s){
             maxSize = s;
-            queArray = new coordinates[maxSize];
+            queArray = new coordsandangle[maxSize];
             front = 0;
             rear = -1;
             nItems = 0;
         }
         //-----------------------------------------
-        public void insert(coordinates coord){
+        public void insert(coordsandangle coord){
             if(rear == maxSize-1)
                 rear = -1;
             queArray[++rear] = coord;
             nItems++;
         }
         //------------------------------------------
-        public coordinates remove(){
-            coordinates temp = queArray[front++];
+        public coordsandangle remove(){
+            coordsandangle temp = queArray[front++];
             if(front == maxSize)
                 front = 0;
             nItems--;
             return temp;
         }
         //-----------------------------------------
-        public coordinates peekFront(){
+        public coordsandangle peekFront(){
             return queArray[front];
         }
         public boolean isFull(){
             return (nItems==maxSize);
+        }
+        public boolean isEmpty(){
+            return (nItems==0);
         }
         public int size(){
             return nItems;
