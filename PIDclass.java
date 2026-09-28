@@ -1,6 +1,6 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode;
 // DISCLAIMER!
-//This is all generated using ChatGPT 
+//This is all generated using ChatGPT
 // SECOND DISCLAIMER!
 //Copy-pasted directly from Will's branch with annotations and some refactoring to prevent collisions
 public class PIDclass {
@@ -29,7 +29,7 @@ public class PIDclass {
         previousTime = System.nanoTime();
     }
 
-    public double calculate(
+    public static double calculate(
             double target,
             double current
     ) {
@@ -66,7 +66,7 @@ public class PIDclass {
         previousError = iError;
 
         return
-                kP * error +
+                kP * iError +
                         kI * integral +
                         kD * derivative;
     }
