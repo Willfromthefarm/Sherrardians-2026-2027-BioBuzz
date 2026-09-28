@@ -1,18 +1,18 @@
 // originally from will's branch
 
 package org.firstinspires.ftc.teamcode;
-import org.firstinspires.ftc.teamcode.auto.localizationhub;
-import org.firstinspires.ftc.teamcode.auto.robothardwaremanager;
+import org.firstinspires.ftc.teamcode.robothardwaremanager;
 
 public class Beziergen {
     robothardwaremanager bGRobot = new robothardwaremanager();
     localizationhub bGLocalization = new localizationhub(bGRobot);
-    public utilityclass utility = new utilityclass();
-    public utilityclass.Queue pathQueue = utility.new Queue(201);
+    public static utilityclass utility = new utilityclass();
+    public static utilityclass.Queue pathQueue = utility.new Queue(201);
     public double currentVelocity = 2;
     public double targetVelocity = 2;
 
     // initialize variables for the checks
+    double lastHeading = 0;
     double previousX = 0;
     double previousY = 0;
     double xDiff = 0;
@@ -21,8 +21,8 @@ public class Beziergen {
     double slope = 0;
     double lastEstdHeading = 0;
     double headingChg = 0;
-    double acceptableMax = (3.14 / 2) // maximum accepted turn radius !!IN RADIANS!! - set to a right angle for now
-  
+    double acceptableMax = (3.14 / 2); // maximum accepted turn radius !!IN RADIANS!! - set to a right angle for now
+
     public Beziergen(double targetX, double targetY, double targetHeading){
         bGLocalization.updatePosition();
         double Y_0 = bGLocalization.currentypose;
@@ -43,37 +43,43 @@ public class Beziergen {
             double xPoseCoords = (oneLessThanT*oneLessThanT*oneLessThanT*X_0)+(3*oneLessThanT*oneLessThanT*t*X_1)+(3*oneLessThanT*t*t*X_2)+(t*t*t*X_3);
             double yPoseCoords = (oneLessThanT*oneLessThanT*oneLessThanT*Y_0)+(3*oneLessThanT*oneLessThanT*t*Y_1)+(3*oneLessThanT*t*t*Y_2)+(t*t*t*Y_3);
             // TODO: generate derivatives
-            double xPoseDerivative = 3 * math.pow(oneMinusSlice , 2) * (X_1 - X_0) + 6 * oneMinusSlice * slice * (X_2 - X_1) + 3 * math.pow(slice, 2) * (X_3 - X_2);
-            double yPoseDerivative = 3 * math.pow(oneMinusSlice , 2) * (Y_1 - Y_0) + 6 * oneMinusSlice * slice * (Y_2 - Y_1) + 3 * math.pow(slice, 2) * (Y_3 - Y_2)
+            double xPoseDerivative = 3 * Math.pow(oneMinusSlice , 2) * (X_1 - X_0) + 6 * oneMinusSlice * slice * (X_2 - X_1) + 3 * Math.pow(slice, 2) * (X_3 - X_2);
+            double yPoseDerivative = 3 * Math.pow(oneMinusSlice , 2) * (Y_1 - Y_0) + 6 * oneMinusSlice * slice * (Y_2 - Y_1) + 3 * Math.pow(slice, 2) * (Y_3 - Y_2);
             double slopeFromDerivative = yPoseDerivative / xPoseDerivative;
-            double headingPoseCoords = math.atan(slopeFromDerivative);
+            double headingPoseCoords = Math.atan(slopeFromDerivative);
             //stores the values in a queue
-            if (slice = 0) {
-            pathQueue.insert(
-                    utility.new coordsandangle(xPoseCoords,yPoseCoords,headingPoseCoords);
-            );
+            if (slice == 0) {
+                pathQueue.insert(
+                        new utilityclass.coordsandangle(xPoseCoords, yPoseCoords, headingPoseCoords)
+                );
             }
-        
-              if (slice >= 2) { //last est'd heading being undefined before the second point
+            if (slice < 2) { //last est'd heading being undefined before the second point
+                double lastHeading = headingPoseCoords;
+
+            }
+            if (slice >= 2) { //last est'd heading being undefined before the second point
                 headingChg = lastHeading - headingPoseCoords; // est'd heading change between points, in radians
-                  
+
                 if (headingChg >= acceptableMax) {
-                  // break function and stop generating curve if the change in heading from one point to another is steeper than possible (i.e. if it's over the acceptable maximum)
-                  return; // or something - just abort the function
-                    
+                    // break function and stop generating curve if the change in heading from one point to another is steeper than possible (i.e. if it's over the acceptable maximum)
+                    return; // or something - just abort the function
+
                 }
-                
-              }
-            lastHeading = headingPoseCoords;
-              
+
             }
-          
-      
+            double lastHeading = headingPoseCoords;
+
+        }
+
+
     }
-    public utilityclass.coordsandangle nextPoint(){
+    public static utilityclass.coordsandangle nextPoint(){
         return pathQueue.remove();
     }
-    public boolean empty(){
+    public static boolean empty(){
         return pathQueue.isEmpty();
+    }
+    public static boolean full(){
+        return pathQueue.isFull();
     }
 }
