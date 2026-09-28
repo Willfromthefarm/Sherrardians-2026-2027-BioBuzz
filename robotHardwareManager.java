@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -16,7 +16,7 @@ public class robothardwaremanager {
     public DcMotor speedy2;
     public DcMotor intake;
     public DcMotor speedy1;
-   // public DcMotor intake1;
+    // public DcMotor intake1;
     public Servo servolaunch;
     public Servo storageservo;
     public Servo turretservo;
@@ -24,7 +24,7 @@ public class robothardwaremanager {
     public GoBildaPinpointDriver odo;
     public NormalizedColorSensor ballSensorL;
     public NormalizedColorSensor ballSensorR;
-    
+
 
     public void init(HardwareMap hardwareMap) {
         // Initialize motors - motor names from your config
