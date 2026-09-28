@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -14,14 +14,13 @@ public class Mecanumdrive {
     private ElapsedTime     runtime = new ElapsedTime();
     private double Robotheading;
     public Mecanumdrive(HardwareMap hardwareMap){
-    // Initialize the drive system variables.
+        // Initialize the drive system variables.
 
-    frontLeftDrive  = hardwareMap.get(DcMotor.class, "front_left");
-    frontRightDrive = hardwareMap.get(DcMotor.class, "front_right");
-    backLeftDrive  = hardwareMap.get(DcMotor.class, "back_left");
-    backRightDrive = hardwareMap.get(DcMotor.class, "back_right");
+        frontLeftDrive  = hardwareMap.get(DcMotor.class, "front_left");
+        frontRightDrive = hardwareMap.get(DcMotor.class, "front_right");
+        backLeftDrive  = hardwareMap.get(DcMotor.class, "back_left");
+        backRightDrive = hardwareMap.get(DcMotor.class, "back_right");
     }
 }
-
 
 
