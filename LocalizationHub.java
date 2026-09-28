@@ -1,17 +1,19 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 
 public class localizationhub {
-    robothardwaremanager localrobot;
+    org.firstinspires.ftc.teamcode.robothardwaremanager localrobot;
     public double currentxpose;
     public double currentypose;
     public double currentheading;
-    public localizationhub(robothardwaremanager robot) {
+    public localizationhub(org.firstinspires.ftc.teamcode.robothardwaremanager robot) {
         localrobot = robot;
     }
+
+
     public void updatePosition(){
         localrobot.odo.update();
         Pose2D pose2D = localrobot.odo.getPosition();
