@@ -87,6 +87,18 @@ public class ballmanager {
             shiftleft();
         }
     }
+    public void nectartoFire() {
+        if(rightCS == 1 || rightCS == 2){
+            shiftright();
+        }
+        if(leftCS == 1 || leftCS == 2) {
+            shiftleft();
+        }
+        if(intake == 1 || intake == 2) {
+            shiftleft();
+            shiftleft();
+        }
+    }
     public void pollentoFire() {
         if(rightCS == 3){
             shiftright();
