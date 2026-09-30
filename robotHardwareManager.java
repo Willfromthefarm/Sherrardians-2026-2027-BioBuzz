@@ -1,24 +1,33 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.PwmControl;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ServoControllerEx;
+import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class robothardwaremanager {
+    private float colorGain=2;
     // Motors
     public DcMotor frontLeft, frontRight, backLeft, backRight;
-    public DcMotor speedyleft;
-    public DcMotor intake2;
-    public DcMotor speedyright;
-    public DcMotor intake1;
-    public CRServo servolaunch;
-    public CRServo servo1;
+    public DcMotor speedy2;
+    public DcMotor intake;
+    public DcMotor speedy1;
+    // public DcMotor intake1;
+    public Servo servolaunch;
+    public Servo storageservo;
+    public Servo turretservo;
     // Pinpoint odometry
     public GoBildaPinpointDriver odo;
+    public NormalizedColorSensor ballSensorL;
+    public NormalizedColorSensor ballSensorR;
+
 
     public void init(HardwareMap hardwareMap) {
         // Initialize motors - motor names from your config
@@ -26,24 +35,34 @@ public class robothardwaremanager {
         frontRight = hardwareMap.get(DcMotor.class, "motor 3");
         backLeft = hardwareMap.get(DcMotor.class, "motor 2");
         backRight = hardwareMap.get(DcMotor.class, "motor 4");
-        speedyleft = hardwareMap.get(DcMotor.class, "speedy left");
-        intake2 = hardwareMap.get(DcMotor.class, "intake 2");
-        speedyright = hardwareMap.get(DcMotor.class, "speedy right");
-        intake1 = hardwareMap.get(DcMotor.class, "intake 1");
-        servolaunch = hardwareMap.get(CRServo.class, "servo launch");
-        servo1 = hardwareMap.get(CRServo.class, "servo1");
+        intake = hardwareMap.get(DcMotor.class, "intake");
+        speedy1 = hardwareMap.get(DcMotor.class, "upperlaunch");
+        speedy2 = hardwareMap.get(DcMotor.class, "lowerlaunch");
+        servolaunch = hardwareMap.get(Servo.class, "servolaunch");
+        storageservo = hardwareMap.get(Servo.class, "storageservo");
+        turretservo = hardwareMap.get(Servo.class, "turretservo");
+        ballSensorL = hardwareMap.get(NormalizedColorSensor.class, "ballSensorL");
+        ballSensorR = hardwareMap.get(NormalizedColorSensor.class, "ballSensorR");
 
         // Set motor directions - ADJUST IF ROBOT MOVES BACKWARDS
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
         backRight.setDirection(DcMotorSimple.Direction.FORWARD);
-        speedyleft.setDirection(DcMotor.Direction.REVERSE);
         // Set zero power behavior
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        //set the color sensor settings
+        ballSensorL.setGain(colorGain);
+        ballSensorR.setGain(colorGain);
+
+        //set the servo range
+        ((ServoImplEx) turretservo).setPwmRange(new PwmControl.PwmRange(500,2500));
+        ((ServoImplEx) storageservo).setPwmRange(new PwmControl.PwmRange(500,2500));
+        ((ServoImplEx) servolaunch).setPwmRange(new PwmControl.PwmRange(500,2500));
 
         // Initialize Pinpoint - ADJUST NAME TO MATCH YOUR CONFIG
         odo = hardwareMap.get(GoBildaPinpointDriver.class, "odo");
