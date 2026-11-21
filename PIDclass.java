@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.auto;
 // DISCLAIMER!
-//This is all generated using ChatGPT 
+//This is all generated using ChatGPT
 
 public class PIDclass {
 
