@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Utility(name="blue comp")
-public class turretandcameracontrolsB extends LinearOpMode {
+public class camera extends LinearOpMode {
     static robothardwaremanager robot;
     static localizationhub turretLocalization = new localizationhub(robot);
     public static double angleoftargettag;
