@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Utility(name="blue comp")
-public class camera extends LinearOpMode {
+public class turretandcameracontrolsB extends LinearOpMode {
     static robothardwaremanager robot;
     static localizationhub turretLocalization = new localizationhub(robot);
     public static double angleoftargettag;
@@ -41,7 +41,7 @@ public class camera extends LinearOpMode {
     static double targetE;
     static double targetR;
     static double targetY;
-
+    PIDclass autoaim = new PIDclass(.008,0,1);
     static double correction;
     static double distanceHorToTgt;
 
@@ -102,6 +102,7 @@ public class camera extends LinearOpMode {
         if(isDetectionFacingUp) {
             correction = (Math.sin(Math.toRadians(targetE)) * targetR) - 47; //should be ~50 in, +3 to account for the camera being a smidge off the ground
             distanceHorToTgt = (Math.cos(Math.toRadians(targetE)) * targetR) + correction;
+            autocorrection = (float) autoaim.calculateCorrection(degreestoturretservoposition(angleoftargettag)); //now this is where the magic happens
         }
     }
     public double literallyanyhorizontaldistancefromafortyangle(double range) {
