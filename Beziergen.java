@@ -10,6 +10,9 @@ public class Beziergen {
     public static utilityclass.Queue pathQueue = utility.new Queue(201);
     public double currentVelocity = 2;
     public double targetVelocity = 2;
+    public double bDestX;
+    public double bDestY;
+    public double bDestH;
 
     // initialize variables for the checks
     double lastHeading = 0;
@@ -24,6 +27,9 @@ public class Beziergen {
     double acceptableMax = (3.14 / 2); // maximum accepted turn radius !!IN RADIANS!! - set to a right angle for now
 
     public Beziergen(double targetX, double targetY, double targetHeading){
+        bDestH = targetHeading;
+        bDestY = targetY;
+        bDestX = targetX;
         bGLocalization.updatePosition();
         double Y_0 = bGLocalization.currentypose;
         double X_0 = bGLocalization.currentxpose;
@@ -42,7 +48,7 @@ public class Beziergen {
             //the curve gen, converts 4 points into a vector navigation path
             double xPoseCoords = (oneLessThanT*oneLessThanT*oneLessThanT*X_0)+(3*oneLessThanT*oneLessThanT*t*X_1)+(3*oneLessThanT*t*t*X_2)+(t*t*t*X_3);
             double yPoseCoords = (oneLessThanT*oneLessThanT*oneLessThanT*Y_0)+(3*oneLessThanT*oneLessThanT*t*Y_1)+(3*oneLessThanT*t*t*Y_2)+(t*t*t*Y_3);
-            // TODO: generate derivatives
+            //DONE: generated derivatives
             double xPoseDerivative = 3 * Math.pow(oneMinusSlice , 2) * (X_1 - X_0) + 6 * oneMinusSlice * slice * (X_2 - X_1) + 3 * Math.pow(slice, 2) * (X_3 - X_2);
             double yPoseDerivative = 3 * Math.pow(oneMinusSlice , 2) * (Y_1 - Y_0) + 6 * oneMinusSlice * slice * (Y_2 - Y_1) + 3 * Math.pow(slice, 2) * (Y_3 - Y_2);
             double slopeFromDerivative = yPoseDerivative / xPoseDerivative;

@@ -5,16 +5,16 @@ package org.firstinspires.ftc.teamcode;
 //Copy-pasted directly from Will's branch with annotations and some refactoring to prevent collisions
 public class PIDclass {
 
-    private double kP;
-    private double kI;
-    private double kD;
+    private static double kP;
+    private static double kI;
+    private static double kD;
 
-    private double integral;
-    private double previousError;
+    private static double integral;
+    private static double previousError;
 
-    private long previousTime;
+    private static long previousTime;
 
-    private double integralLimit = 1.0;
+    private static double integralLimit = 1.0;
 
     public PIDclass(
             double kP,
@@ -39,7 +39,7 @@ public class PIDclass {
         return calculateCorrection(error); //Returns error using a target number and the current number
     }
 
-    public double calculateCorrection(double iError) { //Returns necessary correction
+    public static double calculateCorrection(double iError) { //Returns necessary correction
 
         long now = System.nanoTime();
 
