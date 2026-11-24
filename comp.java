@@ -59,6 +59,7 @@ public class comp extends LinearOpMode {
         float lateral;
         float yaw;
         double max;
+        boolean aim = false;
 
         frontleft = hardwareMap.get(DcMotor.class, "frontleft");
         frontright = hardwareMap.get(DcMotor.class, "frontright");
@@ -135,7 +136,7 @@ public class comp extends LinearOpMode {
                     toptrans.setPower(0);
                     tiptoptrans.setPower(0);
                 }
-                intake.setPower(gamepad1.right_trigger);
+                intake.setPower(gamepad1.right_trigger-gamepad1.left_trigger);
 
                 // POV Mode uses left joystick to go forward & strafe, and
                 //right joystick to rotate.
@@ -145,9 +146,12 @@ public class comp extends LinearOpMode {
                 if (gamepad1.dpad_left) {
                     autoaim.operate();
                 yaw = autoaim.autocorrection;
+                    aim = true;
                 }else {
                     yaw = gamepad1.right_stick_x;
+                    aim = false;
                 }
+                telemetry.addData("autoaim on?",aim);
                 // Combine the joystick requests for each axis-motion to
                 //determine each wheel's power.
                 // Set up a variable for each drive wheel to save the power
